@@ -4,9 +4,14 @@ function ui$(id) { return document.getElementById(id); }
 let savedLvl = 0;
 try { savedLvl = parseInt(localStorage.getItem('minas_lvl') || '0', 10) || 0; } catch (e) {}
 
-function showOv(html) { const ov = ui$('ov'); ov.innerHTML = html; ov.hidden = false; ui$('app').classList.add('ovon'); }
+function showOv(html) { const ov = ui$('ov'); ov.innerHTML = '<div class="wrap">' + html + '</div>'; ov.scrollTop = 0; ov.hidden = false; ui$('app').classList.add('ovon'); }
 function hideOv() { ui$('ov').hidden = true; ui$('app').classList.remove('ovon'); }
-function onTap(id, fn) { const el = ui$(id); if (el) el.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); fn(); }); }
+function onTap(id, fn) {
+  const el = ui$(id); if (!el) return;
+  let t = 0;
+  const go = e => { e.preventDefault(); e.stopPropagation(); const n = Date.now(); if (n - t < 500) return; t = n; fn(); };
+  el.addEventListener('pointerdown', go); el.addEventListener('click', go); // click = reserva caso o toque falhe
+}
 
 function enterFullscreen() {
   try { const el = document.documentElement; (el.requestFullscreen || el.webkitRequestFullscreen || function () { return Promise.reject(); }).call(el).catch(() => {}); } catch (e) {}

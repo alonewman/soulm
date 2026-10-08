@@ -1,6 +1,13 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#06070a">
 <title>As Minas Esquecidas</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap">
 <style>
+[hidden] { display: none !important; }
 /* Layout: tela cheia deitada. Canvas de texto ao fundo, controles de polegar por cima. */
 :root {
   color-scheme: dark;
@@ -68,7 +75,21 @@ h2 { font: 400 20px/1.2 var(--serif); letter-spacing: .08em; margin: 0 0 8px; co
   font: 12px var(--mono); color: var(--amber); pointer-events: none; text-shadow: 0 0 6px #000; }
 @media (orientation: portrait) { #rot { display: block; } }
 @media (prefers-reduced-motion: reduce) { #card.show { animation-duration: .01s; opacity: 1; } }
+.wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 32px; margin: auto; }
+#ov { touch-action: pan-y; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.title .btns { flex-direction: row; flex-wrap: wrap; }
+@media (max-height: 540px) {
+  #ov { padding-block: 10px; }
+  .panel .lead { font-size: 12px; margin-bottom: 10px; }
+  h1 { font-size: clamp(24px, 9vh, 40px); margin: 4px 0 8px; }
+  .btn { padding: 11px 14px; font-size: 12px; }
+  .howto ul { gap: 4px; font-size: 12px; line-height: 1.35; }
+  .howto h2 { font-size: 16px; margin-bottom: 4px; }
+  .panel { max-width: min(380px, 92vw); }
+}
 </style>
+</head>
+<body>
 <div id="app">
   <canvas id="cv"></canvas>
   <div id="zoneL" class="zone"></div>
@@ -1213,9 +1234,14 @@ function ui$(id) { return document.getElementById(id); }
 let savedLvl = 0;
 try { savedLvl = parseInt(localStorage.getItem('minas_lvl') || '0', 10) || 0; } catch (e) {}
 
-function showOv(html) { const ov = ui$('ov'); ov.innerHTML = html; ov.hidden = false; ui$('app').classList.add('ovon'); }
+function showOv(html) { const ov = ui$('ov'); ov.innerHTML = '<div class="wrap">' + html + '</div>'; ov.scrollTop = 0; ov.hidden = false; ui$('app').classList.add('ovon'); }
 function hideOv() { ui$('ov').hidden = true; ui$('app').classList.remove('ovon'); }
-function onTap(id, fn) { const el = ui$(id); if (el) el.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); fn(); }); }
+function onTap(id, fn) {
+  const el = ui$(id); if (!el) return;
+  let t = 0;
+  const go = e => { e.preventDefault(); e.stopPropagation(); const n = Date.now(); if (n - t < 500) return; t = n; fn(); };
+  el.addEventListener('pointerdown', go); el.addEventListener('click', go); // click = reserva caso o toque falhe
+}
 
 function enterFullscreen() {
   try { const el = document.documentElement; (el.requestFullscreen || el.webkitRequestFullscreen || function () { return Promise.reject(); }).call(el).catch(() => {}); } catch (e) {}
@@ -1319,3 +1345,5 @@ function boot() {
 if (typeof document !== 'undefined' && document.getElementById('cv')) boot();
 
 </script>
+</body>
+</html>
