@@ -1,0 +1,87 @@
+<title>As Minas Esquecidas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap">
+<style>
+/* Layout: tela cheia deitada. Canvas de texto ao fundo, controles de polegar por cima. */
+:root {
+  color-scheme: dark;
+  --ink: #06070a;
+  --bone: #d9c9a3;
+  --dim: #8d8266;
+  --amber: #e0a94f;
+  --blood: #c4382c;
+  --moss: #6aa774;
+  --panel: rgba(8, 8, 11, 0.82);
+  --edge: #4a3b22;
+  --serif: 'IM Fell English SC', Georgia, 'Times New Roman', serif;
+  --mono: 'Courier New', ui-monospace, Menlo, Consolas, monospace;
+}
+html, body { height: 100%; margin: 0; background: var(--ink); color: var(--bone); overflow: hidden; overscroll-behavior: none;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; font-family: var(--mono); }
+#app { position: fixed; inset: 0; background: var(--ink); touch-action: none; }
+#cv { display: block; width: 100%; height: 100%; }
+.zone { position: absolute; top: 0; bottom: 0; touch-action: none; }
+#zoneL { left: 0; width: 42%; }
+#zoneR { right: 0; width: 58%; }
+#stickBase { position: absolute; width: 108px; height: 108px; margin: -54px 0 0 -54px; border: 1px solid rgba(224, 169, 79, .38);
+  border-radius: 50%; pointer-events: none; z-index: 3; }
+#stickBase::after { content: ""; position: absolute; inset: -16px; border: 1px dashed rgba(224, 169, 79, .2); border-radius: 50%; }
+#stickKnob { position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; border-radius: 50%; background: rgba(224, 169, 79, .2);
+  border: 1px solid rgba(224, 169, 79, .65); transform: translate(-50%, -50%); }
+#stickBase.run #stickKnob { background: rgba(196, 56, 44, .35); border-color: rgba(255, 120, 100, .8); }
+.cbtn { position: absolute; z-index: 4; display: grid; place-items: center; padding: 0; touch-action: none; border-radius: 50%;
+  border: 1px solid rgba(217, 201, 163, .42); background: rgba(10, 8, 6, .34); color: var(--bone);
+  font: 700 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+.cbtn.down { background: rgba(224, 169, 79, .3); }
+:root { --fire: clamp(84px, 27vh, 128px); --gx: calc(env(safe-area-inset-right, 0px) + 5vw); --gy: calc(env(safe-area-inset-bottom, 0px) + 9vh); }
+#bFire { width: var(--fire); height: var(--fire); right: var(--gx); bottom: var(--gy); border-color: rgba(196, 56, 44, .7); color: #ff9a88; font-size: 12px; }
+#bFire.down { background: rgba(196, 56, 44, .38); }
+#bReload { width: clamp(54px, 17vh, 72px); height: clamp(54px, 17vh, 72px); right: calc(var(--gx) + var(--fire) + 12px); bottom: calc(var(--gy) + 2vh); font-size: 9px; }
+#bRun { width: clamp(54px, 17vh, 72px); height: clamp(54px, 17vh, 72px); right: calc(var(--gx) + var(--fire) * .5 - clamp(54px, 17vh, 72px) * .5); bottom: calc(var(--gy) + var(--fire) + 10px); font-size: 9px; }
+#bPause { width: 40px; height: 40px; border-radius: 8px; right: calc(env(safe-area-inset-right, 0px) + 10px); top: calc(env(safe-area-inset-top, 0px) + 10px); font-size: 13px; opacity: .7; }
+.ovon .cbtn, .ovon #stickBase, .ovon .zone { visibility: hidden; }
+#ov { position: absolute; inset: 0; z-index: 20; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 18px 36px;
+  padding: 16px max(20px, env(safe-area-inset-left, 0px)); overflow: auto; text-align: left;
+  background: radial-gradient(ellipse at 50% 50%, rgba(3, 3, 5, .5), rgba(2, 2, 3, .93) 80%); }
+.panel { max-width: min(430px, 92vw); min-width: 0; }
+.panel.title { max-width: min(460px, 92vw); }
+.kicker { font: 11px/1.4 var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
+h1 { font: 400 clamp(30px, 10vh, 60px)/.98 var(--serif); letter-spacing: .05em; margin: 8px 0 12px; color: var(--amber); text-shadow: 0 0 22px rgba(224, 169, 79, .22); text-wrap: balance; }
+h1.red { color: var(--blood); text-shadow: 0 0 22px rgba(196, 56, 44, .35); }
+h2 { font: 400 20px/1.2 var(--serif); letter-spacing: .08em; margin: 0 0 8px; color: var(--amber); }
+.lead { font: 14px/1.55 var(--mono); color: #bfb394; margin: 0 0 16px; max-width: 44ch; }
+.btns { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
+.btn { font: 700 13px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--bone); background: transparent;
+  border: 1px solid var(--edge); padding: 14px 18px; border-radius: 3px; text-align: left; touch-action: manipulation; cursor: pointer; }
+.btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.btn.main { background: var(--amber); color: #150e05; border-color: var(--amber); }
+.howto ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; font: 13px/1.45 var(--mono); color: #bfb394; }
+.howto li::before { content: "> "; color: var(--amber); }
+.howto b { color: var(--bone); font-weight: 700; }
+.howto .dim { color: var(--dim); }
+.note .parch { font: 18px/1.65 var(--serif); letter-spacing: .02em; background: #17120b; border: 1px solid var(--edge); padding: 18px 20px; color: #e8d9b0; margin: 10px 0 16px; }
+#card { position: absolute; left: 0; right: 0; top: 20%; text-align: center; pointer-events: none; opacity: 0; z-index: 15; padding: 0 20px; }
+#card.show { animation: cardfade 5.2s ease forwards; }
+#card .cn { font: 400 clamp(26px, 9vh, 50px)/1 var(--serif); letter-spacing: .08em; color: var(--amber); text-shadow: 0 0 20px #000; }
+#card .cs { font: 13px/1.5 var(--mono); color: #bfb394; margin-top: 10px; text-shadow: 0 0 8px #000; }
+@keyframes cardfade { 0% { opacity: 0; } 14% { opacity: 1; } 72% { opacity: 1; } 100% { opacity: 0; } }
+#rot { display: none; position: fixed; left: 0; right: 0; top: calc(env(safe-area-inset-top, 0px) + 8px); text-align: center; z-index: 30;
+  font: 12px var(--mono); color: var(--amber); pointer-events: none; text-shadow: 0 0 6px #000; }
+@media (orientation: portrait) { #rot { display: block; } }
+@media (prefers-reduced-motion: reduce) { #card.show { animation-duration: .01s; opacity: 1; } }
+</style>
+<div id="app">
+  <canvas id="cv"></canvas>
+  <div id="zoneL" class="zone"></div>
+  <div id="zoneR" class="zone"></div>
+  <div id="stickBase" hidden><div id="stickKnob"></div></div>
+  <button class="cbtn" id="bRun" type="button">correr</button>
+  <button class="cbtn" id="bReload" type="button">recar.</button>
+  <button class="cbtn" id="bFire" type="button">atirar</button>
+  <button class="cbtn" id="bPause" type="button" aria-label="Pausar">II</button>
+  <div id="card"></div>
+  <div id="rot">Deite o celular na horizontal</div>
+  <div id="ov" hidden></div>
+</div>
+<script>
+/*SCRIPT*/
+</script>
