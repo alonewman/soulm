@@ -33,7 +33,7 @@ UI.title = function () {
   showOv(
     '<div class="panel title">' +
     '<div class="kicker">-=[ ASCII horror game ]=-</div>' +
-    '<h1>THE FORGOTTEN<br>MINES</h1>' +
+    '<h1>DEEPHOLD</h1>' +
     '<p class="lead">A dwarven fortress with no end. A few bullets, a lantern, and something that hears you breathe.</p>' +
     '<div class="btns"><button class="btn main" id="oNew">NEW GAME</button>' + cont + '</div>' +
     '</div>' +

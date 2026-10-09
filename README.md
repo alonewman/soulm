@@ -1,4 +1,4 @@
-# The Forgotten Mines
+# DEEPHOLD
 
 First-person horror made only of ASCII text, built to be played on a phone held sideways.
 A few bullets, a lantern, and a dwarven fortress that never ends. Four hand-built levels and a boss.
