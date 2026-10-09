@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
 <meta name="theme-color" content="#06070a">
-<title>As Minas Esquecidas</title>
+<title>The Forgotten Mines</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap">
 <style>
 [hidden] { display: none !important; }
@@ -95,12 +95,12 @@ h2 { font: 400 20px/1.2 var(--serif); letter-spacing: .08em; margin: 0 0 8px; co
   <div id="zoneL" class="zone"></div>
   <div id="zoneR" class="zone"></div>
   <div id="stickBase" hidden><div id="stickKnob"></div></div>
-  <button class="cbtn" id="bRun" type="button">correr</button>
-  <button class="cbtn" id="bReload" type="button">recar.</button>
-  <button class="cbtn" id="bFire" type="button">atirar</button>
-  <button class="cbtn" id="bPause" type="button" aria-label="Pausar">II</button>
+  <button class="cbtn" id="bRun" type="button">run</button>
+  <button class="cbtn" id="bReload" type="button">reload</button>
+  <button class="cbtn" id="bFire" type="button">fire</button>
+  <button class="cbtn" id="bPause" type="button" aria-label="Pause">II</button>
   <div id="card"></div>
-  <div id="rot">Deite o celular na horizontal</div>
+  <div id="rot">Turn your phone sideways</div>
   <div id="ov" hidden></div>
 </div>
 <script>
@@ -111,13 +111,13 @@ h2 { font: 400 20px/1.2 var(--serif); letter-spacing: .08em; margin: 0 0 8px; co
 // g goblin   o orc   s sombra   B chefe   p portal oculto (ver "portals")
 const LEVELS = [
 {
-  name: "I. O PORTÃO",
-  sub: "A fortaleza de Khar-Dûm não tem fim. Mas todo começo tem uma porta.",
+  name: "I. THE GATE",
+  sub: "The fortress of Khar-Dûm never ends. But every beginning has a door.",
   dir: 0, light: 6.8, key: true,
   notes: [
-    "Entrei pelo portão e ele se fechou atrás de mim. Sem fechadura, sem dobradiça. Só pedra lisa.\nTenho 6 balas. Vou contar cada uma.",
-    "Goblins. Eles correm quando me ouvem correr.\nAndar devagar não chama ninguém.",
-    "A chave está na sala leste. A saída fica no fundo do salão grande, ao sul.",
+    "I came in through the gate and it closed behind me. No lock, no hinge. Only smooth stone.\nI have 6 bullets. I will count every one.",
+    "Goblins. They run when they hear me run.\nWalking slowly calls no one.",
+    "The key is in the east room. The exit is at the back of the big hall, to the south.",
   ],
   map: [
     "#######=#######=########",
@@ -137,13 +137,13 @@ const LEVELS = [
   ],
 },
 {
-  name: "II. SALÕES REPETIDOS",
-  sub: "Nove salas iguais. Oito delas mentem.",
+  name: "II. REPEATING HALLS",
+  sub: "Nine identical rooms. Eight of them lie.",
   dir: 0, light: 6.2, key: true,
   notes: [
-    "Cada sala é idêntica à anterior. Conto os passos, e os passos não batem.\nAlgumas portas me devolvem a uma sala que já deixei.",
-    "A sala que sussurra tem runas na parede.\nO que eu procuro está lá.",
-    "Quando a vela apaga, o zumbido muda de tom.\nA saída está no canto sul-leste.",
+    "Every room is identical to the last. I count my steps, and the steps do not add up.\nSome doors return me to a room I already left.",
+    "The room that whispers has runes on the walls.\nWhat I am looking for is there.",
+    "When the candle goes out, the humming changes pitch.\nThe exit is in the south-east corner.",
   ],
   portals: [[13, 6, 3, 2], [16, 10, 9, 2]],
   map: [
@@ -163,13 +163,13 @@ const LEVELS = [
   ],
 },
 {
-  name: "III. A CRIPTA ALAGADA",
-  sub: "A água sobe até os tornozelos. Algo caminha dentro dela.",
+  name: "III. THE FLOODED CRYPT",
+  sub: "The water rises to your ankles. Something walks inside it.",
   dir: 1.5708, light: 5.2, key: true, water: true,
   notes: [
-    "As tochas daqui já nasceram apagadas.\nSó a minha lanterna e o som da água.",
-    "Orcs guardam os corredores estreitos. Cinco balas por orc, se a mira for boa.\nSe não for, corro.",
-    "Há uma vela no meio da cripta. Se eu chegar nela, descanso.\nDepois, só o coração da montanha.",
+    "The torches here were born unlit.\nOnly my lantern and the sound of water.",
+    "Orcs guard the narrow corridors. Five bullets per orc, if my aim is good.\nIf it is not, I run.",
+    "There is a candle in the middle of the crypt. If I reach it, I rest.\nAfter that, only the heart of the mountain.",
   ],
   map: [
     "##########=###############",
@@ -195,12 +195,12 @@ const LEVELS = [
   ],
 },
 {
-  name: "IV. O CORAÇÃO DA MONTANHA",
-  sub: "Algo respira embaixo da pedra. A saída está atrás dele.",
+  name: "IV. HEART OF THE MOUNTAIN",
+  sub: "Something breathes beneath the stone. The exit is behind it.",
   dir: 1.5708, light: 4.8, key: false, boss: true,
   notes: [
-    "O zumbido parou. É pior.\nO ar aqui é quente.",
-    "Quando ele ruge, corro para trás das colunas.\nAs balas que sobrarem são todas para ele.",
+    "The humming stopped. That is worse.\nThe air here is warm.",
+    "When it roars, I run behind the pillars.\nWhatever bullets are left are all for it.",
   ],
   map: [
     "#####=#########=#####",
@@ -524,7 +524,7 @@ const ART = {
   heal: pad(['  _  ', ' |+| ', ' |_| ']),
   note: pad([' _____ ', '(~~~~~)', "'-----'"]),
   candle: pad([' ^ ', ' | ', '[#]', '[#]', '[#]']),
-  orb: pad([' (*) ', '(***)', ' (*) ']),
+  orb: pad(['  ,*,  ', ' (***) ', '(*****)', ' (***) ', "  `*'  "]),
   gun: pad([
     '        .--.        ', '        |  |        ', '        |##|        ', '        |##|        ',
     '     ___|##|___     ', '    /  [====]  \\    ', '   |   |####|   |   ', '   |___|####|___|   ',
@@ -839,13 +839,13 @@ function drawHUD() {
   const rows = R.rows, cols = R.cols;
   put(cols >> 1, rows >> 1, 43, R.aim ? 4 : 0, R.aim ? 9 : 5);
   const hpN = clamp(Math.round(G.hp / 10), 0, 10);
-  putText(2, rows - 2, 'VIDA [' + '#'.repeat(hpN) + '.'.repeat(10 - hpN) + '] ' + Math.ceil(G.hp), 4, G.hp < 35 ? 9 : 6);
+  putText(2, rows - 2, 'HEALTH [' + '#'.repeat(hpN) + '.'.repeat(10 - hpN) + '] ' + Math.ceil(G.hp), 4, G.hp < 35 ? 9 : 6);
   let ammo = '';
   for (let i = 0; i < 6; i++) ammo += i < G.clip ? '|' : '.';
-  const am = G.reload > 0 ? 'RECARREGANDO...' : ('BALAS [' + ammo + '] +' + G.reserve);
+  const am = G.reload > 0 ? 'RELOADING...' : ('AMMO [' + ammo + '] +' + G.reserve);
   putText(cols - am.length - 2, rows - 2, am, 6, (G.clip === 0 && G.reload <= 0) ? 9 : 7);
-  if (G.stamina < 98) { const sN = Math.round(G.stamina / 10); putText(2, rows - 3, 'FOLEGO [' + '='.repeat(sN) + ' '.repeat(10 - sN) + ']', 0, 5); }
-  const key = G.L.boss ? '' : (G.hasKey ? 'CHAVE [o-]' : 'CHAVE [  ]');
+  if (G.stamina < 98) { const sN = Math.round(G.stamina / 10); putText(2, rows - 3, 'STAMINA [' + '='.repeat(sN) + ' '.repeat(10 - sN) + ']', 0, 5); }
+  const key = G.L.boss ? '' : (G.hasKey ? 'KEY [o-]' : 'KEY [  ]');
   if (key) putCenter(1, key, G.hasKey ? 9 : 0, G.hasKey ? 8 : 4);
   putText(2, 1, G.L.name, 0, 4);
   if (G.msgT > 0 && G.msg) {
@@ -905,7 +905,7 @@ function damageEnemy(e, dmg) {
   e.lose = 0;
   if (e.hp <= 0 && e.state !== 'dying') {
     e.state = 'dying'; e.dead = 0; e.atk = 0; SFX.die();
-    if (e.c === 'B') { G.bossDead = true; G.shots = []; say('O coração da montanha parou.\nA saída se abre.', 5); SFX.open(); G.shake = 1; }
+    if (e.c === 'B') { G.bossDead = true; G.shots = []; say('The heart of the mountain has stopped.\nThe exit opens.', 5); SFX.open(); G.shake = 1; }
   }
 }
 
@@ -925,7 +925,7 @@ function tryFire() {
       if (lat < e.T.r + 0.07 && t < bt) { bt = t; best = e; }
     }
     if (best) damageEnemy(best, 1);
-    if (G.clip === 0) say(G.reserve > 0 ? 'Pente vazio. Recarregue.' : 'Sem balas. Só a faca.', 2.2);
+    if (G.clip === 0) say(G.reserve > 0 ? 'Magazine empty. Reload.' : 'Out of bullets. Only the knife.', 2.2);
   } else if (G.reserve > 0) {
     startReload();
   } else if (G.knifeCd <= 0) {
@@ -978,7 +978,7 @@ function updatePlayer(dt) {
   if (G.L.portals && G.portalCd <= 0) {
     for (const p of G.L.portals) if (Math.floor(G.px) === p[0] && Math.floor(G.py) === p[1]) {
       G.px = p[2] + 0.5; G.py = p[3] + 0.5; G.portalCd = 1.6; G.flowAt = -1;
-      SFX.portal(); G.shake = 1; G.hurt = 0.35; say('Os corredores se dobraram.\nEsta sala já foi outra.', 3.5);
+      SFX.portal(); G.shake = 1; G.hurt = 0.35; say('The corridors folded.\nThis room was another before.', 3.5);
       break;
     }
   }
@@ -1013,13 +1013,13 @@ function updateItems() {
     if (it.taken) continue;
     const d = Math.hypot(G.px - it.x, G.py - it.y);
     if (it.type === 'c') {
-      if (!it.lit && d < 1.4) { it.lit = true; G.hp = Math.min(100, G.hp + 25); saveCheckpoint(); say('Vela acesa. Ponto seguro.\nO progresso foi guardado.', 3.6); SFX.candle(); }
+      if (!it.lit && d < 1.4) { it.lit = true; G.hp = Math.min(100, G.hp + 25); saveCheckpoint(); say('Candle lit. Safe spot.\nProgress saved.', 3.6); SFX.candle(); }
       continue;
     }
     if (d > 0.55) continue;
-    if (it.type === 'k') { it.taken = true; G.hasKey = true; say('Chave de ferro.\nA saída está em algum lugar.', 4); SFX.key(); }
-    else if (it.type === 'a') { it.taken = true; G.reserve += 5; say('+5 balas', 2); SFX.pick(); }
-    else if (it.type === 'h') { if (G.hp >= 100) continue; it.taken = true; G.hp = Math.min(100, G.hp + 35); say('Ervas curativas. +35 de vida.', 2.4); SFX.pick(); }
+    if (it.type === 'k') { it.taken = true; G.hasKey = true; say('Iron key.\nThe exit is somewhere.', 4); SFX.key(); }
+    else if (it.type === 'a') { it.taken = true; G.reserve += 5; say('+5 bullets', 2); SFX.pick(); }
+    else if (it.type === 'h') { if (G.hp >= 100) continue; it.taken = true; G.hp = Math.min(100, G.hp + 35); say('Healing herbs. +35 health.', 2.4); SFX.pick(); }
     else if (it.type === 'n') { it.taken = true; SFX.note(); G.state = 'note'; if (UI.note) UI.note(G.L.notes[it.idx] || '...'); }
   }
 }
@@ -1036,7 +1036,7 @@ function updateExit(dt) {
     if (G.state === 'win') { if (UI.win) UI.win(); } else if (UI.levelEnd) UI.levelEnd();
   } else if (G.exitMsgT <= 0) {
     G.exitMsgT = 2.8;
-    say(G.L.boss ? 'A porta de pedra não cede.\nAlgo ainda respira.' : 'Trancada. Falta a chave.', 2.6);
+    say(G.L.boss ? 'The stone door will not yield.\nSomething still breathes.' : 'Locked. The key is missing.', 2.6);
   }
 }
 
@@ -1084,7 +1084,7 @@ function updateEnemies(dt) {
     fearT = Math.max(fearT, clamp(1 - d / (e.c === 's' ? 11 : 8), 0, 1) * (e.c === 'B' ? 1 : 0.8));
     e.gr -= dt;
     if (e.gr <= 0 && d < 14) { e.gr = 3 + Math.random() * 4; AU.v = clamp(1 - d / 14, 0.12, 0.8); if (e.c === 's') SFX.shriek(); else SFX.growl(e.c === 'o' || e.c === 'B'); AU.v = 1; }
-    if (e.c === 'B' && e.phase === 1 && e.hp <= T.hp * 0.5) { e.phase = 2; SFX.roar(); G.shake = 1; say('O CHEFE RUGE.', 2.5); e.fire = 0.8; }
+    if (e.c === 'B' && e.phase === 1 && e.hp <= T.hp * 0.5) { e.phase = 2; SFX.roar(); G.shake = 1; say('THE BEAST ROARS.', 2.5); e.fire = 0.8; }
     const sMul = (e.c === 'B' && e.phase === 2) ? 1.55 : 1;
     // ataque corpo a corpo com aviso
     if (e.atk > 0) {
@@ -1259,56 +1259,56 @@ function beginGame(lvl, fresh) {
 UI.title = function () {
   G.state = 'title';
   const cont = savedLvl > 0 && LEVELS[savedLvl]
-    ? '<button class="btn" id="oCont">CONTINUAR &mdash; ' + LEVELS[savedLvl].name + '</button>' : '';
+    ? '<button class="btn" id="oCont">CONTINUE &mdash; ' + LEVELS[savedLvl].name + '</button>' : '';
   showOv(
     '<div class="panel title">' +
-    '<div class="kicker">-=[ jogo de terror em ASCII ]=-</div>' +
-    '<h1>AS MINAS<br>ESQUECIDAS</h1>' +
-    '<p class="lead">Uma fortaleza anã que não termina. Poucas balas, uma lanterna e algo que ouve você respirar.</p>' +
-    '<div class="btns"><button class="btn main" id="oNew">NOVO JOGO</button>' + cont + '</div>' +
+    '<div class="kicker">-=[ ASCII horror game ]=-</div>' +
+    '<h1>THE FORGOTTEN<br>MINES</h1>' +
+    '<p class="lead">A dwarven fortress with no end. A few bullets, a lantern, and something that hears you breathe.</p>' +
+    '<div class="btns"><button class="btn main" id="oNew">NEW GAME</button>' + cont + '</div>' +
     '</div>' +
-    '<div class="panel howto"><h2>Como jogar</h2><ul>' +
-    '<li><b>Esquerda:</b> arraste para andar. Arraste bem longe para <b>correr</b>.</li>' +
-    '<li><b>Direita:</b> arraste para olhar. <b>ATIRAR</b> também gira se você deslizar.</li>' +
-    '<li>Correr e atirar fazem <b>barulho</b>. Monstros ouvem.</li>' +
-    '<li>Ache a <b>chave</b>, depois a <b>saída</b>. Velas salvam o progresso.</li>' +
-    '<li>Runas brilham no escuro. Itens cintilam.</li>' +
-    '<li class="dim">Deite o celular na horizontal. Use fones.</li></ul></div>'
+    '<div class="panel howto"><h2>How to play</h2><ul>' +
+    '<li><b>Left:</b> drag to walk. Drag far to <b>run</b>.</li>' +
+    '<li><b>Right:</b> drag to look. <b>FIRE</b> also turns if you slide.</li>' +
+    '<li>Running and shooting make <b>noise</b>. Monsters listen.</li>' +
+    '<li>Find the <b>key</b>, then the <b>exit</b>. Candles save your progress.</li>' +
+    '<li>Runes glow in the dark. Items glint.</li>' +
+    '<li class="dim">Turn your phone sideways. Use headphones.</li></ul></div>'
   );
   onTap('oNew', () => beginGame(0, true));
   onTap('oCont', () => beginGame(savedLvl, false));
 };
 UI.note = function (text) {
-  showOv('<div class="panel note"><div class="kicker">bilhete encontrado</div><p class="parch">' + text.replace(/\n/g, '<br>') + '</p><button class="btn" id="oClose">GUARDAR</button></div>');
+  showOv('<div class="panel note"><div class="kicker">note found</div><p class="parch">' + text.replace(/\n/g, '<br>') + '</p><button class="btn" id="oClose">KEEP</button></div>');
   onTap('oClose', () => { hideOv(); G.state = 'play'; });
 };
 UI.dead = function () {
   setTimeout(() => {
     if (G.state !== 'dead') return;
-    showOv('<div class="panel dead"><h1 class="red">VOCÊ MORREU</h1><p class="lead">A pedra guarda quem não volta.</p><button class="btn main" id="oRetry">TENTAR DE NOVO</button></div>');
-    onTap('oRetry', () => { restoreCheckpoint(); hideOv(); G.state = 'play'; G.hurt = 0; say('De volta à última vela.', 3); });
+    showOv('<div class="panel dead"><h1 class="red">YOU DIED</h1><p class="lead">The stone keeps those who do not return.</p><button class="btn main" id="oRetry">TRY AGAIN</button></div>');
+    onTap('oRetry', () => { restoreCheckpoint(); hideOv(); G.state = 'play'; G.hurt = 0; say('Back at the last candle.', 3); });
   }, 1100);
 };
 UI.levelEnd = function () {
   const nxt = LEVELS[G.lvl + 1];
   setTimeout(() => {
-    showOv('<div class="panel"><div class="kicker">fase concluída</div><h1>' + G.L.name + '</h1><p class="lead">A porta cede. Mais fundo.</p><button class="btn main" id="oNext">DESCER &mdash; ' + nxt.name + '</button></div>');
+    showOv('<div class="panel"><div class="kicker">level complete</div><h1>' + G.L.name + '</h1><p class="lead">The door gives way. Deeper.</p><button class="btn main" id="oNext">DESCEND &mdash; ' + nxt.name + '</button></div>');
     onTap('oNext', () => { hideOv(); G._keepAmmo = true; G.hp = Math.min(100, G.hp + 20); startLevel(G.lvl + 1); });
   }, 1400);
 };
 UI.win = function () {
   setTimeout(() => {
-    showOv('<div class="panel"><div class="kicker">fim</div><h1>LUZ</h1><p class="lead">A porta se abre para uma noite sem estrelas. O ar frio é quase doce.<br><br>Atrás de você, muito fundo, o zumbido recomeça.</p><button class="btn main" id="oAgain">VOLTAR AO INÍCIO</button></div>');
+    showOv('<div class="panel"><div class="kicker">the end</div><h1>LIGHT</h1><p class="lead">The door opens onto a night with no stars. The cold air is almost sweet.<br><br>Behind you, far below, the humming starts again.</p><button class="btn main" id="oAgain">BACK TO THE START</button></div>');
     onTap('oAgain', () => { try { localStorage.removeItem('minas_lvl'); } catch (e) {} savedLvl = 0; G._keepAmmo = false; loadLevel(0); findExit(); UI.title(); });
   }, 1600);
 };
 UI.pause = function () {
   if (G.state === 'play') {
     G.state = 'pause';
-    showOv('<div class="panel"><h1>PAUSA</h1><div class="btns"><button class="btn main" id="oRes">CONTINUAR</button><button class="btn" id="oRst">REINICIAR FASE</button><button class="btn" id="oSnd">SOM: ' + (AU.on ? 'LIGADO' : 'MUDO') + '</button></div></div>');
+    showOv('<div class="panel"><h1>PAUSED</h1><div class="btns"><button class="btn main" id="oRes">RESUME</button><button class="btn" id="oRst">RESTART LEVEL</button><button class="btn" id="oSnd">SOUND: ' + (AU.on ? 'ON' : 'MUTED') + '</button></div></div>');
     onTap('oRes', () => { hideOv(); G.state = 'play'; });
     onTap('oRst', () => { hideOv(); G._keepAmmo = true; startLevel(G.lvl); });
-    onTap('oSnd', () => { AU.on = !AU.on; if (AU.master) AU.master.gain.value = AU.on ? 0.85 : 0; ui$('oSnd').textContent = 'SOM: ' + (AU.on ? 'LIGADO' : 'MUDO'); });
+    onTap('oSnd', () => { AU.on = !AU.on; if (AU.master) AU.master.gain.value = AU.on ? 0.85 : 0; ui$('oSnd').textContent = 'SOUND: ' + (AU.on ? 'ON' : 'MUTED'); });
   }
 };
 UI.card = function (name, sub) {

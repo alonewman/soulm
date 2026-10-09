@@ -9,7 +9,7 @@ LEVELS.forEach((L, li) => {
   const h = L.map.length, w = Math.max(...L.map.map(r => r.length));
   const widths = [...new Set(L.map.map(r => r.length))];
   let issues = [];
-  if (widths.length > 1) issues.push('larguras diferentes: ' + L.map.map((r, i) => i + ':' + r.length).join(' '));
+  if (widths.length > 1) issues.push('row widths differ: ' + L.map.map((r, i) => i + ':' + r.length).join(' '));
   const at = (x, y) => (y < 0 || y >= h || x < 0 || x >= w) ? '#' : (L.map[y][x] || '#');
   let start = null, items = [], exit = null, keys = 0;
   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
@@ -20,9 +20,9 @@ LEVELS.forEach((L, li) => {
     if ('gosB'.includes(c)) items.push([c, x, y]);
     if (c === 'k') keys++;
   }
-  if (!start) issues.push('sem início');
-  if (!exit) issues.push('sem saída');
-  if (L.key && keys !== 1) issues.push('chaves: ' + keys);
+  if (!start) issues.push('no start');
+  if (!exit) issues.push('no exit');
+  if (L.key && keys !== 1) issues.push('keys: ' + keys);
   const pass = c => c !== '#' && c !== '%' && c !== '=' && c !== 'X';
   const seen = new Set();
   const q = [start];
@@ -42,14 +42,14 @@ LEVELS.forEach((L, li) => {
       if (!seen.has(k)) { seen.add(k); q.push([p[2], p[3]]); }
     }
   }
-  items.forEach(([c, x, y]) => { if (!seen.has(x + ',' + y)) issues.push('inalcançável ' + c + ' em ' + x + ',' + y); });
+  items.forEach(([c, x, y]) => { if (!seen.has(x + ',' + y)) issues.push('unreachable ' + c + ' em ' + x + ',' + y); });
   if (exit) {
     const adj = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => seen.has((exit[0] + dx) + ',' + (exit[1] + dy)));
-    if (!adj) issues.push('saída inalcançável');
+    if (!adj) issues.push('exit unreachable');
   }
   // portais precisam estar em chão
-  portals.forEach(p => { if (!pass(at(p[0], p[1])) || !pass(at(p[2], p[3]))) issues.push('portal em parede ' + p); });
-  console.log((issues.length ? 'FALHA ' : 'ok    ') + L.name + ' (' + w + 'x' + h + ') ' + issues.join(' | '));
+  portals.forEach(p => { if (!pass(at(p[0], p[1])) || !pass(at(p[2], p[3]))) issues.push('portal inside wall ' + p); });
+  console.log((issues.length ? 'FAIL ' : 'ok    ') + L.name + ' (' + w + 'x' + h + ') ' + issues.join(' | '));
   bad += issues.length;
 });
 process.exit(bad ? 1 : 0);

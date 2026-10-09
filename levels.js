@@ -5,13 +5,13 @@
 // g goblin   o orc   s sombra   B chefe   p portal oculto (ver "portals")
 const LEVELS = [
 {
-  name: "I. O PORTÃO",
-  sub: "A fortaleza de Khar-Dûm não tem fim. Mas todo começo tem uma porta.",
+  name: "I. THE GATE",
+  sub: "The fortress of Khar-Dûm never ends. But every beginning has a door.",
   dir: 0, light: 6.8, key: true,
   notes: [
-    "Entrei pelo portão e ele se fechou atrás de mim. Sem fechadura, sem dobradiça. Só pedra lisa.\nTenho 6 balas. Vou contar cada uma.",
-    "Goblins. Eles correm quando me ouvem correr.\nAndar devagar não chama ninguém.",
-    "A chave está na sala leste. A saída fica no fundo do salão grande, ao sul.",
+    "I came in through the gate and it closed behind me. No lock, no hinge. Only smooth stone.\nI have 6 bullets. I will count every one.",
+    "Goblins. They run when they hear me run.\nWalking slowly calls no one.",
+    "The key is in the east room. The exit is at the back of the big hall, to the south.",
   ],
   map: [
     "#######=#######=########",
@@ -31,13 +31,13 @@ const LEVELS = [
   ],
 },
 {
-  name: "II. SALÕES REPETIDOS",
-  sub: "Nove salas iguais. Oito delas mentem.",
+  name: "II. REPEATING HALLS",
+  sub: "Nine identical rooms. Eight of them lie.",
   dir: 0, light: 6.2, key: true,
   notes: [
-    "Cada sala é idêntica à anterior. Conto os passos, e os passos não batem.\nAlgumas portas me devolvem a uma sala que já deixei.",
-    "A sala que sussurra tem runas na parede.\nO que eu procuro está lá.",
-    "Quando a vela apaga, o zumbido muda de tom.\nA saída está no canto sul-leste.",
+    "Every room is identical to the last. I count my steps, and the steps do not add up.\nSome doors return me to a room I already left.",
+    "The room that whispers has runes on the walls.\nWhat I am looking for is there.",
+    "When the candle goes out, the humming changes pitch.\nThe exit is in the south-east corner.",
   ],
   portals: [[13, 6, 3, 2], [16, 10, 9, 2]],
   map: [
@@ -57,13 +57,13 @@ const LEVELS = [
   ],
 },
 {
-  name: "III. A CRIPTA ALAGADA",
-  sub: "A água sobe até os tornozelos. Algo caminha dentro dela.",
+  name: "III. THE FLOODED CRYPT",
+  sub: "The water rises to your ankles. Something walks inside it.",
   dir: 1.5708, light: 5.2, key: true, water: true,
   notes: [
-    "As tochas daqui já nasceram apagadas.\nSó a minha lanterna e o som da água.",
-    "Orcs guardam os corredores estreitos. Cinco balas por orc, se a mira for boa.\nSe não for, corro.",
-    "Há uma vela no meio da cripta. Se eu chegar nela, descanso.\nDepois, só o coração da montanha.",
+    "The torches here were born unlit.\nOnly my lantern and the sound of water.",
+    "Orcs guard the narrow corridors. Five bullets per orc, if my aim is good.\nIf it is not, I run.",
+    "There is a candle in the middle of the crypt. If I reach it, I rest.\nAfter that, only the heart of the mountain.",
   ],
   map: [
     "##########=###############",
@@ -89,12 +89,12 @@ const LEVELS = [
   ],
 },
 {
-  name: "IV. O CORAÇÃO DA MONTANHA",
-  sub: "Algo respira embaixo da pedra. A saída está atrás dele.",
+  name: "IV. HEART OF THE MOUNTAIN",
+  sub: "Something breathes beneath the stone. The exit is behind it.",
   dir: 1.5708, light: 4.8, key: false, boss: true,
   notes: [
-    "O zumbido parou. É pior.\nO ar aqui é quente.",
-    "Quando ele ruge, corro para trás das colunas.\nAs balas que sobrarem são todas para ele.",
+    "The humming stopped. That is worse.\nThe air here is warm.",
+    "When it roars, I run behind the pillars.\nWhatever bullets are left are all for it.",
   ],
   map: [
     "#####=#########=#####",

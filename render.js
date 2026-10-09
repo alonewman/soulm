@@ -247,13 +247,13 @@ function drawHUD() {
   const rows = R.rows, cols = R.cols;
   put(cols >> 1, rows >> 1, 43, R.aim ? 4 : 0, R.aim ? 9 : 5);
   const hpN = clamp(Math.round(G.hp / 10), 0, 10);
-  putText(2, rows - 2, 'VIDA [' + '#'.repeat(hpN) + '.'.repeat(10 - hpN) + '] ' + Math.ceil(G.hp), 4, G.hp < 35 ? 9 : 6);
+  putText(2, rows - 2, 'HEALTH [' + '#'.repeat(hpN) + '.'.repeat(10 - hpN) + '] ' + Math.ceil(G.hp), 4, G.hp < 35 ? 9 : 6);
   let ammo = '';
   for (let i = 0; i < 6; i++) ammo += i < G.clip ? '|' : '.';
-  const am = G.reload > 0 ? 'RECARREGANDO...' : ('BALAS [' + ammo + '] +' + G.reserve);
+  const am = G.reload > 0 ? 'RELOADING...' : ('AMMO [' + ammo + '] +' + G.reserve);
   putText(cols - am.length - 2, rows - 2, am, 6, (G.clip === 0 && G.reload <= 0) ? 9 : 7);
-  if (G.stamina < 98) { const sN = Math.round(G.stamina / 10); putText(2, rows - 3, 'FOLEGO [' + '='.repeat(sN) + ' '.repeat(10 - sN) + ']', 0, 5); }
-  const key = G.L.boss ? '' : (G.hasKey ? 'CHAVE [o-]' : 'CHAVE [  ]');
+  if (G.stamina < 98) { const sN = Math.round(G.stamina / 10); putText(2, rows - 3, 'STAMINA [' + '='.repeat(sN) + ' '.repeat(10 - sN) + ']', 0, 5); }
+  const key = G.L.boss ? '' : (G.hasKey ? 'KEY [o-]' : 'KEY [  ]');
   if (key) putCenter(1, key, G.hasKey ? 9 : 0, G.hasKey ? 8 : 4);
   putText(2, 1, G.L.name, 0, 4);
   if (G.msgT > 0 && G.msg) {

@@ -31,7 +31,7 @@ function damageEnemy(e, dmg) {
   e.lose = 0;
   if (e.hp <= 0 && e.state !== 'dying') {
     e.state = 'dying'; e.dead = 0; e.atk = 0; SFX.die();
-    if (e.c === 'B') { G.bossDead = true; G.shots = []; say('O coração da montanha parou.\nA saída se abre.', 5); SFX.open(); G.shake = 1; }
+    if (e.c === 'B') { G.bossDead = true; G.shots = []; say('The heart of the mountain has stopped.\nThe exit opens.', 5); SFX.open(); G.shake = 1; }
   }
 }
 
@@ -51,7 +51,7 @@ function tryFire() {
       if (lat < e.T.r + 0.07 && t < bt) { bt = t; best = e; }
     }
     if (best) damageEnemy(best, 1);
-    if (G.clip === 0) say(G.reserve > 0 ? 'Pente vazio. Recarregue.' : 'Sem balas. Só a faca.', 2.2);
+    if (G.clip === 0) say(G.reserve > 0 ? 'Magazine empty. Reload.' : 'Out of bullets. Only the knife.', 2.2);
   } else if (G.reserve > 0) {
     startReload();
   } else if (G.knifeCd <= 0) {
@@ -104,7 +104,7 @@ function updatePlayer(dt) {
   if (G.L.portals && G.portalCd <= 0) {
     for (const p of G.L.portals) if (Math.floor(G.px) === p[0] && Math.floor(G.py) === p[1]) {
       G.px = p[2] + 0.5; G.py = p[3] + 0.5; G.portalCd = 1.6; G.flowAt = -1;
-      SFX.portal(); G.shake = 1; G.hurt = 0.35; say('Os corredores se dobraram.\nEsta sala já foi outra.', 3.5);
+      SFX.portal(); G.shake = 1; G.hurt = 0.35; say('The corridors folded.\nThis room was another before.', 3.5);
       break;
     }
   }
@@ -139,13 +139,13 @@ function updateItems() {
     if (it.taken) continue;
     const d = Math.hypot(G.px - it.x, G.py - it.y);
     if (it.type === 'c') {
-      if (!it.lit && d < 1.4) { it.lit = true; G.hp = Math.min(100, G.hp + 25); saveCheckpoint(); say('Vela acesa. Ponto seguro.\nO progresso foi guardado.', 3.6); SFX.candle(); }
+      if (!it.lit && d < 1.4) { it.lit = true; G.hp = Math.min(100, G.hp + 25); saveCheckpoint(); say('Candle lit. Safe spot.\nProgress saved.', 3.6); SFX.candle(); }
       continue;
     }
     if (d > 0.55) continue;
-    if (it.type === 'k') { it.taken = true; G.hasKey = true; say('Chave de ferro.\nA saída está em algum lugar.', 4); SFX.key(); }
-    else if (it.type === 'a') { it.taken = true; G.reserve += 5; say('+5 balas', 2); SFX.pick(); }
-    else if (it.type === 'h') { if (G.hp >= 100) continue; it.taken = true; G.hp = Math.min(100, G.hp + 35); say('Ervas curativas. +35 de vida.', 2.4); SFX.pick(); }
+    if (it.type === 'k') { it.taken = true; G.hasKey = true; say('Iron key.\nThe exit is somewhere.', 4); SFX.key(); }
+    else if (it.type === 'a') { it.taken = true; G.reserve += 5; say('+5 bullets', 2); SFX.pick(); }
+    else if (it.type === 'h') { if (G.hp >= 100) continue; it.taken = true; G.hp = Math.min(100, G.hp + 35); say('Healing herbs. +35 health.', 2.4); SFX.pick(); }
     else if (it.type === 'n') { it.taken = true; SFX.note(); G.state = 'note'; if (UI.note) UI.note(G.L.notes[it.idx] || '...'); }
   }
 }
@@ -162,7 +162,7 @@ function updateExit(dt) {
     if (G.state === 'win') { if (UI.win) UI.win(); } else if (UI.levelEnd) UI.levelEnd();
   } else if (G.exitMsgT <= 0) {
     G.exitMsgT = 2.8;
-    say(G.L.boss ? 'A porta de pedra não cede.\nAlgo ainda respira.' : 'Trancada. Falta a chave.', 2.6);
+    say(G.L.boss ? 'The stone door will not yield.\nSomething still breathes.' : 'Locked. The key is missing.', 2.6);
   }
 }
 
@@ -210,7 +210,7 @@ function updateEnemies(dt) {
     fearT = Math.max(fearT, clamp(1 - d / (e.c === 's' ? 11 : 8), 0, 1) * (e.c === 'B' ? 1 : 0.8));
     e.gr -= dt;
     if (e.gr <= 0 && d < 14) { e.gr = 3 + Math.random() * 4; AU.v = clamp(1 - d / 14, 0.12, 0.8); if (e.c === 's') SFX.shriek(); else SFX.growl(e.c === 'o' || e.c === 'B'); AU.v = 1; }
-    if (e.c === 'B' && e.phase === 1 && e.hp <= T.hp * 0.5) { e.phase = 2; SFX.roar(); G.shake = 1; say('O CHEFE RUGE.', 2.5); e.fire = 0.8; }
+    if (e.c === 'B' && e.phase === 1 && e.hp <= T.hp * 0.5) { e.phase = 2; SFX.roar(); G.shake = 1; say('THE BEAST ROARS.', 2.5); e.fire = 0.8; }
     const sMul = (e.c === 'B' && e.phase === 2) ? 1.55 : 1;
     // ataque corpo a corpo com aviso
     if (e.atk > 0) {

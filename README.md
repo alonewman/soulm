@@ -1,33 +1,33 @@
-# As Minas Esquecidas
+# The Forgotten Mines
 
-Terror em primeira pessoa feito só de texto ASCII, pensado para jogar no celular deitado (horizontal).
-Poucas balas, uma lanterna e uma fortaleza anã que não termina. Quatro fases desenhadas à mão e um chefe.
+First-person horror made only of ASCII text, built to be played on a phone held sideways.
+A few bullets, a lantern, and a dwarven fortress that never ends. Four hand-built levels and a boss.
 
-## Jogar
+## Play
 
-Abra `index.html` no navegador (celular ou computador). Para ter um link, ative o GitHub Pages
-(Settings > Pages > Deploy from a branch > `main` / root).
+Open `index.html` in a browser (phone or desktop). For a public link, enable GitHub Pages
+(Settings > Pages > Deploy from a branch > `main` / root) or deploy the folder as a static site.
 
-## Controles
+## Controls
 
-- **Celular:** esquerda arrasta para andar (bem longe = correr); direita arrasta para olhar; botões ATIRAR, CORRER, RECAR.
-- **Teclado:** WASD andar, setas/Q/E girar, Espaço atirar, Shift correr, R recarregar, Esc pausa.
+- **Phone:** drag on the left to walk (drag far to run); drag on the right to look; buttons FIRE, RUN, RELOAD.
+- **Keyboard:** WASD move, arrows/Q/E turn, Space fire, Shift run, R reload, Esc pause.
 
-## Estrutura
+## Structure
 
-| Arquivo | Conteúdo |
+| File | Contents |
 |---|---|
-| `levels.js` | mapas, notas e configuração das fases |
-| `core.js` | estado, colisão, inimigos, luz |
-| `render.js`, `art.js` | raycaster ASCII, paleta, sprites |
-| `logic.js` | jogador, combate, IA, fim de fase |
-| `audio.js` | sons sintetizados (WebAudio) |
-| `input.js`, `main.js`, `shell.html` | controles, interface, página |
+| `levels.js` | maps, notes and settings for each level |
+| `core.js` | state, collision, enemies, light |
+| `render.js`, `art.js` | ASCII raycaster, palette, sprites |
+| `logic.js` | player, combat, enemy AI, level flow |
+| `audio.js` | synthesized sound (WebAudio) |
+| `input.js`, `main.js`, `shell.html` | controls, interface, page |
 
-## Desenvolvimento
+## Development
 
 ```
-python3 build.py        # gera index.html (arquivo único) a partir das partes
-node tests/test_levels.js   # valida mapas e se tudo é alcançável
-node tests/test_sim.js      # robô joga as 4 fases até o fim
+python3 build.py            # builds index.html (single file) from the parts
+node tests/test_levels.js   # validates the maps and that everything is reachable
+node tests/test_sim.js      # a bot plays all 4 levels to the end
 ```

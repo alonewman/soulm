@@ -29,56 +29,56 @@ function beginGame(lvl, fresh) {
 UI.title = function () {
   G.state = 'title';
   const cont = savedLvl > 0 && LEVELS[savedLvl]
-    ? '<button class="btn" id="oCont">CONTINUAR &mdash; ' + LEVELS[savedLvl].name + '</button>' : '';
+    ? '<button class="btn" id="oCont">CONTINUE &mdash; ' + LEVELS[savedLvl].name + '</button>' : '';
   showOv(
     '<div class="panel title">' +
-    '<div class="kicker">-=[ jogo de terror em ASCII ]=-</div>' +
-    '<h1>AS MINAS<br>ESQUECIDAS</h1>' +
-    '<p class="lead">Uma fortaleza anã que não termina. Poucas balas, uma lanterna e algo que ouve você respirar.</p>' +
-    '<div class="btns"><button class="btn main" id="oNew">NOVO JOGO</button>' + cont + '</div>' +
+    '<div class="kicker">-=[ ASCII horror game ]=-</div>' +
+    '<h1>THE FORGOTTEN<br>MINES</h1>' +
+    '<p class="lead">A dwarven fortress with no end. A few bullets, a lantern, and something that hears you breathe.</p>' +
+    '<div class="btns"><button class="btn main" id="oNew">NEW GAME</button>' + cont + '</div>' +
     '</div>' +
-    '<div class="panel howto"><h2>Como jogar</h2><ul>' +
-    '<li><b>Esquerda:</b> arraste para andar. Arraste bem longe para <b>correr</b>.</li>' +
-    '<li><b>Direita:</b> arraste para olhar. <b>ATIRAR</b> também gira se você deslizar.</li>' +
-    '<li>Correr e atirar fazem <b>barulho</b>. Monstros ouvem.</li>' +
-    '<li>Ache a <b>chave</b>, depois a <b>saída</b>. Velas salvam o progresso.</li>' +
-    '<li>Runas brilham no escuro. Itens cintilam.</li>' +
-    '<li class="dim">Deite o celular na horizontal. Use fones.</li></ul></div>'
+    '<div class="panel howto"><h2>How to play</h2><ul>' +
+    '<li><b>Left:</b> drag to walk. Drag far to <b>run</b>.</li>' +
+    '<li><b>Right:</b> drag to look. <b>FIRE</b> also turns if you slide.</li>' +
+    '<li>Running and shooting make <b>noise</b>. Monsters listen.</li>' +
+    '<li>Find the <b>key</b>, then the <b>exit</b>. Candles save your progress.</li>' +
+    '<li>Runes glow in the dark. Items glint.</li>' +
+    '<li class="dim">Turn your phone sideways. Use headphones.</li></ul></div>'
   );
   onTap('oNew', () => beginGame(0, true));
   onTap('oCont', () => beginGame(savedLvl, false));
 };
 UI.note = function (text) {
-  showOv('<div class="panel note"><div class="kicker">bilhete encontrado</div><p class="parch">' + text.replace(/\n/g, '<br>') + '</p><button class="btn" id="oClose">GUARDAR</button></div>');
+  showOv('<div class="panel note"><div class="kicker">note found</div><p class="parch">' + text.replace(/\n/g, '<br>') + '</p><button class="btn" id="oClose">KEEP</button></div>');
   onTap('oClose', () => { hideOv(); G.state = 'play'; });
 };
 UI.dead = function () {
   setTimeout(() => {
     if (G.state !== 'dead') return;
-    showOv('<div class="panel dead"><h1 class="red">VOCÊ MORREU</h1><p class="lead">A pedra guarda quem não volta.</p><button class="btn main" id="oRetry">TENTAR DE NOVO</button></div>');
-    onTap('oRetry', () => { restoreCheckpoint(); hideOv(); G.state = 'play'; G.hurt = 0; say('De volta à última vela.', 3); });
+    showOv('<div class="panel dead"><h1 class="red">YOU DIED</h1><p class="lead">The stone keeps those who do not return.</p><button class="btn main" id="oRetry">TRY AGAIN</button></div>');
+    onTap('oRetry', () => { restoreCheckpoint(); hideOv(); G.state = 'play'; G.hurt = 0; say('Back at the last candle.', 3); });
   }, 1100);
 };
 UI.levelEnd = function () {
   const nxt = LEVELS[G.lvl + 1];
   setTimeout(() => {
-    showOv('<div class="panel"><div class="kicker">fase concluída</div><h1>' + G.L.name + '</h1><p class="lead">A porta cede. Mais fundo.</p><button class="btn main" id="oNext">DESCER &mdash; ' + nxt.name + '</button></div>');
+    showOv('<div class="panel"><div class="kicker">level complete</div><h1>' + G.L.name + '</h1><p class="lead">The door gives way. Deeper.</p><button class="btn main" id="oNext">DESCEND &mdash; ' + nxt.name + '</button></div>');
     onTap('oNext', () => { hideOv(); G._keepAmmo = true; G.hp = Math.min(100, G.hp + 20); startLevel(G.lvl + 1); });
   }, 1400);
 };
 UI.win = function () {
   setTimeout(() => {
-    showOv('<div class="panel"><div class="kicker">fim</div><h1>LUZ</h1><p class="lead">A porta se abre para uma noite sem estrelas. O ar frio é quase doce.<br><br>Atrás de você, muito fundo, o zumbido recomeça.</p><button class="btn main" id="oAgain">VOLTAR AO INÍCIO</button></div>');
+    showOv('<div class="panel"><div class="kicker">the end</div><h1>LIGHT</h1><p class="lead">The door opens onto a night with no stars. The cold air is almost sweet.<br><br>Behind you, far below, the humming starts again.</p><button class="btn main" id="oAgain">BACK TO THE START</button></div>');
     onTap('oAgain', () => { try { localStorage.removeItem('minas_lvl'); } catch (e) {} savedLvl = 0; G._keepAmmo = false; loadLevel(0); findExit(); UI.title(); });
   }, 1600);
 };
 UI.pause = function () {
   if (G.state === 'play') {
     G.state = 'pause';
-    showOv('<div class="panel"><h1>PAUSA</h1><div class="btns"><button class="btn main" id="oRes">CONTINUAR</button><button class="btn" id="oRst">REINICIAR FASE</button><button class="btn" id="oSnd">SOM: ' + (AU.on ? 'LIGADO' : 'MUDO') + '</button></div></div>');
+    showOv('<div class="panel"><h1>PAUSED</h1><div class="btns"><button class="btn main" id="oRes">RESUME</button><button class="btn" id="oRst">RESTART LEVEL</button><button class="btn" id="oSnd">SOUND: ' + (AU.on ? 'ON' : 'MUTED') + '</button></div></div>');
     onTap('oRes', () => { hideOv(); G.state = 'play'; });
     onTap('oRst', () => { hideOv(); G._keepAmmo = true; startLevel(G.lvl); });
-    onTap('oSnd', () => { AU.on = !AU.on; if (AU.master) AU.master.gain.value = AU.on ? 0.85 : 0; ui$('oSnd').textContent = 'SOM: ' + (AU.on ? 'LIGADO' : 'MUDO'); });
+    onTap('oSnd', () => { AU.on = !AU.on; if (AU.master) AU.master.gain.value = AU.on ? 0.85 : 0; ui$('oSnd').textContent = 'SOUND: ' + (AU.on ? 'ON' : 'MUTED'); });
   }
 };
 UI.card = function (name, sub) {

@@ -6,9 +6,9 @@ const W_ = Number(process.env.SW || 900), H_ = Number(process.env.SH || 420);
 globalThis.window = { innerWidth: W_, innerHeight: H_, devicePixelRatio: 1, addEventListener() {} };
 R.cvs = { style: {}, width: 0, height: 0 }; R.ctx = fake; resize();
 Object.assign(UI, { card() {}, note() {}, dead() {}, levelEnd() {}, win() {}, title() {}, pause() {} });
-console.log('grade', R.cols + 'x' + R.rows, 'fonte', R.fs);
+console.log('grid', R.cols + 'x' + R.rows, 'font', R.fs);
 
-function bfsNext(tx, ty) { // próximo tile no caminho até (tx,ty), com portais
+function bfsNext(tx, ty) { // next tile on the path to (tx,ty), portals included
   const sx = Math.floor(G.px), sy = Math.floor(G.py);
   const key = (x, y) => y * G.W + x, prev = new Map(), q = [[sx, sy]]; prev.set(key(sx, sy), null);
   const portals = (G.L.portals || []);
@@ -59,30 +59,30 @@ function runLevel(i) {
     IN.look = 0; IN.turn = 0;
     update(1 / 30); render(); present();
     if (G.state === 'dead') break;
-    for (const v of [G.px, G.py, G.ang, G.hp, G.fear]) if (!Number.isFinite(v)) throw new Error('NaN no estado, quadro ' + frames);
+    for (const v of [G.px, G.py, G.ang, G.hp, G.fear]) if (!Number.isFinite(v)) throw new Error('NaN in state, frame ' + frames);
     maxFear = Math.max(maxFear, G.fear);
   }
   const ms = (Date.now() - t0) / frames;
   const killed = G.enemies.filter(e => e.state === 'dead' || e.state === 'dying').length;
-  return { nivel: G.L.name, estado: G.state, quadros: frames, 'ms/quadro': ms.toFixed(2), chave: G.hasKey, mortos: killed + '/' + kills0, balasRestantes: G.clip + '+' + G.reserve, medoMax: maxFear.toFixed(2) };
+  return { level: G.L.name, state: G.state, frames: frames, 'ms/frame': ms.toFixed(2), key: G.hasKey, killed: killed + '/' + kills0, ammoLeft: G.clip + '+' + G.reserve, maxFear: maxFear.toFixed(2) };
 }
 let fail = 0;
 for (let i = 0; i < LEVELS.length; i++) {
   try {
     const r = runLevel(i); console.log(r);
-    if (!(r.estado === 'levelend' || r.estado === 'win')) { fail++; console.log('  >>> NÃO CONCLUIU', 'pos', G.px.toFixed(2), G.py.toFixed(2)); }
-  } catch (e) { fail++; console.log('ERRO fase', i, e.stack); }
+    if (!(r.state === 'levelend' || r.state === 'win')) { fail++; console.log('  >>> DID NOT FINISH', 'pos', G.px.toFixed(2), G.py.toFixed(2)); }
+  } catch (e) { fail++; console.log('ERROR level', i, e.stack); }
 }
 // teste de dano: inimigo ataca jogador parado
 loadLevel(0); G.state = 'play'; G.hp = 100;
 const gob = G.enemies.find(e => e.c === 'g'); gob.x = G.px + 1.4; gob.y = G.py; gob.state = 'hunt';
 for (let k = 0; k < 120 && G.state === 'play'; k++) { IN.mv = 0; IN.st = 0; IN.fire = false; update(1 / 30); }
-console.log('dano por goblin em 4s parado: hp', Math.round(G.hp));
-if (G.hp >= 100) { fail++; console.log('  >>> goblin nao atacou'); }
+console.log('goblin damage after 4s standing still: hp', Math.round(G.hp));
+if (G.hp >= 100) { fail++; console.log('  >>> goblin did not attack'); }
 // teste de morte e retorno ao checkpoint
-G.hp = 5; hurtPlayer(20); console.log('morte ->', G.state); restoreCheckpoint(); G.state = 'play'; console.log('checkpoint ->', G.state, 'hp', G.hp);
+G.hp = 5; hurtPlayer(20); console.log('death ->', G.state); restoreCheckpoint(); G.state = 'play'; console.log('checkpoint ->', G.state, 'hp', G.hp);
 // stress de render em resolucoes
-console.log(fail ? 'FALHAS: ' + fail : 'TUDO OK');
+console.log(fail ? 'FAILURES: ' + fail : 'ALL OK');
 process.exitCode = fail ? 1 : 0;
 `;
 new Function('process', 'require', src + '\n' + test)(process, require);
